@@ -16,6 +16,7 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(planetsRouter);
 app.use(launchesRouter);
+
 app.get('/', (req, res) => {
     res.send('Welcome to my NASA api project')
 });
