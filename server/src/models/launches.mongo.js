@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 
 const launchesSchema = new mongoose.Schema({
   flightNumber: {
-    trype: Number,
+    type: Number,
     required: true,
   },
   launchDate: {
-    trype: Date,
+    type: Date,
     required: true,
   },
   mission: {
-    trype: String,
+    type: String,
     required: true,
   },
   rocket: {
-    trype: String,
+    type: String,
     required: true,
   },
   target: {
@@ -32,3 +32,6 @@ const launchesSchema = new mongoose.Schema({
     default: true,
   },
 });
+
+// Connects launchesSchema with the "launches" collection
+module.exports = mongoose.model('Launch', launchesSchema);
