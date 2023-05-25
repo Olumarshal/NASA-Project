@@ -1,9 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const morgan = require('morgan');
-
-const planetsRouter = require("./routes/planets/planets.router");
-const launchesRouter = require("./routes/launches/launches.router");
+const api = require('./routes/api')
 
 const app = express();
 
@@ -14,11 +12,11 @@ app.use(cors({
 app.use(morgan('combined'));
 
 app.use(express.json());
-app.use(planetsRouter);
-app.use(launchesRouter);
 
 app.get('/', (req, res) => {
     res.send('Welcome to my NASA api project')
 });
+
+app.use('/v1', api);
 
 module.exports = app
