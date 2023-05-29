@@ -44,6 +44,11 @@ async function populateLaunches() {
     },
   });
 
+  if (response !== 200) {
+    console.log('Problem downloading launch');
+    throw new Error('Launch data download failed')
+  }
+
   const launchDocs = response.data.docs;
   for (const launchDoc of launchDocs) {
     const payloads = launchDoc['payloads'];
@@ -61,7 +66,7 @@ async function populateLaunches() {
       customers,
     };
 
-    console.log(`${launch.flightNumber} ${launch.mission}`);
+    // console.log(`${launch.flightNumber} ${launch.mission}`);
 
     await saveLaunch(launch);
   }
@@ -103,7 +108,10 @@ async function getLatestFlightNumber() {
 }
 
 async function getAllLaunches() {
-  return await launchesDatabase.find({}, { _id: 0, __v: 0 });
+  return await launchesDatabase
+  .find({}, { _id: 0, __v: 0 })
+  .skip(1)
+  .limit(50);
 }
 
 async function saveLaunch(launch) {
